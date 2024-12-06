@@ -1,1 +1,12 @@
 scrapy
+selenium
+
+
+# installation de chrome et chrome driver pour selenium
+# télécharger : https://sites.google.com/chromium.org/driver/ dans /usr/local/bin/
+# ex de site de téléchargement : https://googlechromelabs.github.io/chrome-for-testing/
+# export PATH=$PATH:/chemin/vers/chromedriver
+# installer chrome :
+# wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+# sudo apt install ./google-chrome-stable_current_amd64.deb
+# google-chrome --version
