@@ -39,7 +39,7 @@ def scan_json_and_get_final_urls(json_file_path, out_file):
         links = []
         for item in data:
             links.append(item['link'])
-            
+
     except:
         links = []
 
@@ -71,6 +71,20 @@ def scan_json_and_get_final_urls(json_file_path, out_file):
 
                 if count > 3:
                     break
+            
+            else:
+                print(f"URL already scanned: {item['link']}")
+
+                dict_ai_tool = {}
+                dict_ai_tool['category'] = item['category']
+                dict_ai_tool['title'] = item['title']
+                dict_ai_tool['description'] = item['description']
+                dict_ai_tool['tags'] = item['tags']
+                dict_ai_tool['link'] = item['link']
+                dict_ai_tool['type'] = item['type']
+                dict_ai_tool['final_url'] = item['final_url']   
+
+                ai_tools.append(dict_ai_tool)
     
     with open(out_file, 'w') as outfile:
         json.dump(ai_tools, outfile, indent=4)
