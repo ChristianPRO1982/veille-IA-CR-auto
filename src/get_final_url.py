@@ -31,31 +31,50 @@ def get_final_url_with_selenium(url):
 
 
 # scan json file and get final url
-def scan_json_and_get_final_urls(json_file_path):
+def scan_json_and_get_final_urls(json_file_path, out_file):
+    try:
+        with open(out_file, 'r') as file:
+            data = json.load(file)
+        
+        links = []
+        for item in data:
+            links.append(item['link'])
+            
+    except:
+        links = []
+
     with open(json_file_path, 'r') as file:
         data = json.load(file)
-    
+
     ai_tools = []
 
+    count = 0
     for item in data:
         if 'link' in item:
-            dict_ai_tool = {}
-            dict_ai_tool['category'] = item['category']
-            dict_ai_tool['title'] = item['title']
-            dict_ai_tool['description'] = item['description']
-            dict_ai_tool['tags'] = item['tags']
-            dict_ai_tool['link'] = item['link']
-            dict_ai_tool['type'] = item['type']
+            if item['link'] not in links:
+                count += 1
 
-            url = item['link']
-            final_url = get_final_url_with_selenium(url)
-            print(f"Original URL: {url} -> Final URL: {final_url}")
-            dict_ai_tool['final_url'] = final_url
+                dict_ai_tool = {}
+                dict_ai_tool['category'] = item['category']
+                dict_ai_tool['title'] = item['title']
+                dict_ai_tool['description'] = item['description']
+                dict_ai_tool['tags'] = item['tags']
+                dict_ai_tool['link'] = item['link']
+                dict_ai_tool['type'] = item['type']
 
-            ai_tools.append(dict_ai_tool)
+                url = item['link']
+                final_url = get_final_url_with_selenium(url)
+                print(f"Original URL: {url} -> Final URL: {final_url}")
+                dict_ai_tool['final_url'] = final_url
+
+                ai_tools.append(dict_ai_tool)
+
+                if count > 3:
+                    break
     
-    with open('final_ai_tools.json', 'w') as outfile:
+    with open(out_file, 'w') as outfile:
         json.dump(ai_tools, outfile, indent=4)
 
 json_file_path = 'ai_tools.json'
-scan_json_and_get_final_urls(json_file_path)
+out_file = 'final_ai_tools.json'
+scan_json_and_get_final_urls(json_file_path, out_file)
