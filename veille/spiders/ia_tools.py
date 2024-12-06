@@ -19,11 +19,8 @@ class IaToolsSpider(scrapy.Spider):
             data = json.load(file)
 
         # Récupérer les liens depuis le JSON
-        # entry = data[0]
-        # url = entry.get('link')
-        # if url:
-        #     yield scrapy.Request(url, headers=common_headers, callback=self.parse)
-        for entry in data:
+        if 1 == 0:
+            entry = data[0]
             url = entry.get('link')
             category = entry.get('category')
             link_text = entry.get('link_text')
@@ -37,6 +34,21 @@ class IaToolsSpider(scrapy.Spider):
                         'link_text': link_text,
                         }
                     )
+        else:
+            for entry in data:
+                url = entry.get('link')
+                category = entry.get('category')
+                link_text = entry.get('link_text')
+                if url:
+                    yield scrapy.Request(
+                        url,
+                        headers=common_headers,
+                        callback=self.parse,
+                        meta={
+                            'category': category,
+                            'link_text': link_text,
+                            }
+                        )
 
 
     def parse(self, response):
@@ -81,3 +93,15 @@ class IaToolsSpider(scrapy.Spider):
                 'link': link,
                 'type': type,
             }
+
+        # NEXT PAGE
+        next_page = response.css('a.next.page-numbers::attr(href)').get()
+        if next_page:
+            self.logger.info(f"Next page found: {next_page}")
+            yield scrapy.Request(
+                url=next_page,
+                headers=common_headers,
+                callback=self.parse,
+                meta=response.meta
+            )
+    
