@@ -1,5 +1,6 @@
 import scrapy
 import json
+from veille.items import AiToolItem
 
 
 
@@ -59,6 +60,8 @@ class AiToolsSpider(scrapy.Spider):
 
         div_tools = div_latest_posts.css('div.post-item')
         for tool in div_tools:
+            item = AiToolItem()
+            
             # TYPE : free, freemium, paid
             div_post_thumbnail = tool.css('div.post-thumbnail')
             divs = div_post_thumbnail.css('div')
@@ -67,32 +70,27 @@ class AiToolsSpider(scrapy.Spider):
             span = span[1]
             span = span.css('span')
             span = span[0]
-            type = span.css('span::text').get()
+            item['type'] = span.css('span::text').get()
 
             # TITLE
-            title = tool.css('a#specialButton::text').get()
+            item['title'] = tool.css('a#specialButton::text').get()
             
             # DESCRIPTION
-            description = tool.css('p.post-excerpt::text').get()
+            item['description'] = tool.css('p.post-excerpt::text').get()
 
             # TAGS
             tags_bloc = tool.css('span.post-category')
             tags = tags_bloc.css('a')
-            tags_list = []
-            for tag in tags:
-                tags_list.append(tag.css('a::text').get())
+            tags_list = [tag.css('a::text').get() for tag in tags]
+            item['tags'] = tags_list
             
             # LINK
-            link = tool.css('a.visit-site-button4::attr(href)').get()
+            item['link'] = tool.css('a.visit-site-button4::attr(href)').get()
 
-            yield {
-                'category': category,
-                'title': title,
-                'description': description,
-                'tags': tags_list,
-                'link': link,
-                'type': type,
-            }
+            # CATEGORY
+            item['category'] = category
+
+            yield item
 
         # NEXT PAGE
         next_page = response.css('a.next.page-numbers::attr(href)').get()
