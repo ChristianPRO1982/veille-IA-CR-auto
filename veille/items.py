@@ -17,8 +17,9 @@ class AiToolItem(scrapy.Item):
     title = scrapy.Field()
     description = scrapy.Field()
     tags = scrapy.Field()
-    link = scrapy.Field()
     type = scrapy.Field()
-    date = scrapy.Field()
+    inner_url = scrapy.Field()
+    outer_url = scrapy.Field()
     final_url = scrapy.Field()
+    date = scrapy.Field()
     

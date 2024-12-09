@@ -6,11 +6,11 @@ Veille IA sur le sujet de CR automatique
 
 ## lignes de commande
 ```bash
-scrapy crawl info_aixplora -o categories.json
+scrapy crawl info_aixplora -O categories.json
 ```
 
 ```bash
-scrapy crawl ai_tools -O ai_tools.json
+scrapy crawl ai_tools --set LOG_LEVEL=WARNING --logfile=scrapy.log
 ```
 
 ```bash

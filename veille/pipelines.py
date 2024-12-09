@@ -10,11 +10,6 @@ import sqlite3
 
 
 
-class VeillePipeline:
-    def process_item(self, item, spider):
-        return item
-
-
 class SQLitePipeline:
     def open_spider(self, spider):
         self.conn = sqlite3.connect('ai_tools.db')
@@ -26,15 +21,15 @@ class SQLitePipeline:
 
     def process_item(self, item, spider):
         self.cursor.execute('''
-            INSERT INTO ai_tools (category, title, description, tags, link, type, final_url)
-            VALUES (?, ?, ?, ?, ?, ?, ?)
+            INSERT INTO ai_tools (category, title, description, type, inner_url, outer_url)
+            VALUES (?, ?, ?, ?, ?, ?)
         ''', (
             item.get('category'),
             item.get('title'),
             item.get('description'),
-            '|'.join(item.get('tags', [])),  # Transforme la liste en chaîne
-            item.get('link'),
+            # '|'.join(item.get('tags', [])),  # Transforme la liste en chaîne
             item.get('type'),
-            None,
+            item.get('inner_url'),
+            item.get('outer_url'),
         ))
         return item
