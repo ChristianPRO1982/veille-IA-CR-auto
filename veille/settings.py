@@ -64,6 +64,7 @@ ROBOTSTXT_OBEY = True
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
    "veille.pipelines.AiToolsPipeline": 300,
+   "veille.pipelines.TagsPipeline": 400,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)

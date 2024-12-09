@@ -1,6 +1,6 @@
 import scrapy
 import sqlite3
-from scrapy.crawler import CrawlerProcess
+from veille.items import AiToolConcatItem
 from veille.spiders.utils import common_headers
 
 
@@ -22,11 +22,15 @@ class TagsSpider(scrapy.Spider):
 
         for row in self.rows:
             yield scrapy.Request(url=row[1], meta={"id": row[0]})
+            break
 
 
     def parse(self, response):
+        item = AiToolConcatItem()
+
         tags = response.css('div.entry-categories span::attr(data-title)').getall()
-        yield {
-            "id": response.meta["id"],
-            "tags": tags,
-        }
+
+        item["id"] = response.meta["id"]
+        item["tags"] = "|".join(tags)
+
+        yield item

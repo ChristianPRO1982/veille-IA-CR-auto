@@ -27,9 +27,29 @@ class AiToolsPipeline:
             item.get('category'),
             item.get('title'),
             item.get('description'),
-            # '|'.join(item.get('tags', [])),  # Transforme la liste en chaîne
             item.get('type'),
             item.get('inner_url'),
             item.get('outer_url'),
+        ))
+        return item
+
+
+class TagsPipeline:
+    def open_spider(self, spider):
+        self.conn = sqlite3.connect('ai_tools.db')
+        self.cursor = self.conn.cursor()
+
+    def close_spider(self, spider):
+        self.conn.commit()
+        self.conn.close()
+
+    def process_item(self, item, spider):
+        self.cursor.execute('''
+            UPDATE ai_tools_concat
+               SET tags = ?
+             WHERE id = ?
+        ''', (
+            item.get('tags'),
+            item.get('id'),
         ))
         return item

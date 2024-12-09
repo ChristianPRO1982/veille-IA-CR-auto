@@ -35,4 +35,4 @@ CREATE TABLE ai_tools_concat (
 conn.commit()
 conn.close()
 
-print("Table créée avec succès.")
+print("Tables créées avec succès.")

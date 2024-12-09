@@ -1,11 +1,16 @@
 import sqlite3
+import os
 
 def execute_query():
-    # Connect to the SQLite database
+    file_path = 'tags.csv'
+    open(file_path, 'w').close()
+
     conn = sqlite3.connect('ai_tools.db')
     cursor = conn.cursor()
 
-    # Define the SQL query
+    query = "DELETE FROM ai_tools_concat"
+    cursor.execute(query)
+
     query = """
 INSERT INTO ai_tools_concat (category, title, description, type, inner_url, outer_url)
   SELECT GROUP_CONCAT(tmp.category, '||') AS category,
@@ -26,11 +31,16 @@ INSERT INTO ai_tools_concat (category, title, description, type, inner_url, oute
          ) as tmp
 GROUP BY tmp.title, tmp.outer_url
     """
-
-    # Execute the query
     cursor.execute(query)
 
-    # Commit the changes and close the connection
+    query = "SELECT id, inner_url FROM ai_tools_concat"
+    cursor.execute(query)
+    rows = cursor.fetchall()
+    with open(file_path, 'a') as file:
+        for row in rows:
+            content = row
+            file.write(f'{content}\n')
+
     conn.commit()
     conn.close()
 
