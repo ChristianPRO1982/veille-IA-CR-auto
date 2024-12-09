@@ -1,4 +1,5 @@
 import scrapy
+import sqlite3
 from veille.spiders.utils import common_headers
 
 
@@ -13,6 +14,8 @@ class InfoAixploraSpider(scrapy.Spider):
 
 
     def start_requests(self):
+        self.conn = sqlite3.connect('output/ai_tools.db')
+
         for url in self.start_urls:
             yield scrapy.Request(url, headers=common_headers)
 
@@ -31,5 +34,7 @@ class InfoAixploraSpider(scrapy.Spider):
 
 
     def close_spider(self, spider, reason):
+        self.conn.rollback()
+        self.conn.close()
         # Logic to disable pipelines if needed
         spider.crawler.engine.close_spider(self, reason)

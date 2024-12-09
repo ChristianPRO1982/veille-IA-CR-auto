@@ -1,4 +1,7 @@
 import sqlite3
+import os
+
+os.makedirs('output', exist_ok=True)
 
 conn = sqlite3.connect('output/ai_tools.db')
 cursor = conn.cursor()
@@ -7,11 +10,11 @@ cursor.execute('''
 CREATE TABLE ai_tools (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     category TEXT,
-    title TEXT NOT NULL,
+    title TEXT,
     description TEXT,
     type TEXT,
-    inner_url TEXT NOT NULL,
-    outer_url TEXT NOT NULL,
+    inner_url TEXT,
+    outer_url TEXT,
     date DATETIME DEFAULT CURRENT_TIMESTAMP
 )
 ''')

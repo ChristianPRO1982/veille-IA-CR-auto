@@ -1,5 +1,6 @@
 import scrapy
 import json
+import sqlite3
 from veille.items import AiToolItem
 from veille.spiders.utils import common_headers
 
@@ -14,6 +15,8 @@ class AiToolsSpider(scrapy.Spider):
 
 
     def start_requests(self):
+        self.conn = sqlite3.connect('output/ai_tools.db')
+
         with open('output/categories.json', 'r', encoding='utf-8') as file:
             data = json.load(file)
 
@@ -105,3 +108,7 @@ class AiToolsSpider(scrapy.Spider):
                 meta=response.meta
             )
     
+
+    def close(self, reason):
+        self.conn.commit()
+        self.conn.close()
