@@ -19,18 +19,14 @@ python ./src/create_db.py
 
 ## lignes de commande
 
-### Exécution principale
-
-```bash
-python ./src/ai_tools_concat.py
-```
-
 ### Commandes occasionnelles
 
 Pour collecter des catégories depuis Aixploria et les sauvegarder dans un fichier JSON :
 ```bash
-scrapy crawl info_aixplora -O categories.json
+scrapy crawl info_aixplora -O output/categories.json --set LOG_LEVEL=WARNING --logfile=output/scrapy.log
 ```
+
+### Exécution principale
 
 Pour collecter des outils IA tout en réduisant la verbosité des logs et en enregistrant les logs dans un fichier :
 ```bash
