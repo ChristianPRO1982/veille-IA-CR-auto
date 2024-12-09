@@ -1,10 +1,10 @@
 # veille-IA-CR-auto
 Veille sur l’intelligence artificielle appliquée aux comptes rendus automatiques.
 
-## Sites visités
+### Sites visités
 - [Aixploria - Catégories AI](https://www.aixploria.com/categories-ai/)
 
-## Installation
+### Installation
 1. Créez un environnement virtuel (venv).
 2. Installez les dépendances à partir du fichier `requirements.txt`.
 3. Exécutez le script pour générer la base de données (BSS) :
@@ -12,14 +12,14 @@ Veille sur l’intelligence artificielle appliquée aux comptes rendus automatiq
 python ./src/create_db.py
 ```
 
-# lignes de commande
+## lignes de commande
 
-## Exécution principale
+### Exécution principale
 ```bash
 python ./src/ai_tools_concat.py
 ```
 
-##Commandes occasionnelles
+### Commandes occasionnelles
 Pour collecter des catégories depuis Aixploria et les sauvegarder dans un fichier JSON :
 ```bash
 scrapy crawl info_aixplora -O categories.json
