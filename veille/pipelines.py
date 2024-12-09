@@ -11,15 +11,10 @@ import sqlite3
 
 
 class AiToolsPipeline:
-    def open_spider(self, spider):
-        self.conn = sqlite3.connect('output/ai_tools.db')
+    def process_item(self, item, spider):
+        self.conn = spider.conn
         self.cursor = self.conn.cursor()
 
-    def close_spider(self, spider):
-        self.conn.commit()
-        self.conn.close()
-
-    def process_item(self, item, spider):
         self.cursor.execute('''
             INSERT INTO ai_tools (category, title, description, type, inner_url, outer_url)
             VALUES (?, ?, ?, ?, ?, ?)
@@ -31,19 +26,15 @@ class AiToolsPipeline:
             item.get('inner_url'),
             item.get('outer_url'),
         ))
+
         return item
 
 
 class TagsPipeline:
-    def open_spider(self, spider):
-        self.conn = sqlite3.connect('output/ai_tools.db')
+    def process_item(self, item, spider):
+        self.conn = spider.conn
         self.cursor = self.conn.cursor()
 
-    def close_spider(self, spider):
-        self.conn.commit()
-        self.conn.close()
-
-    def process_item(self, item, spider):
         self.cursor.execute('''
             UPDATE ai_tools_concat
                SET tags = ?
@@ -52,4 +43,5 @@ class TagsPipeline:
             item.get('tags'),
             item.get('id'),
         ))
+
         return item

@@ -7,11 +7,11 @@ cursor.execute('''
 CREATE TABLE ai_tools (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     category TEXT,
-    title TEXT,
+    title TEXT NOT NULL,
     description TEXT,
     type TEXT,
-    inner_url TEXT,
-    outer_url TEXT,
+    inner_url TEXT NOT NULL,
+    outer_url TEXT NOT NULL,
     date DATETIME DEFAULT CURRENT_TIMESTAMP
 )
 ''')

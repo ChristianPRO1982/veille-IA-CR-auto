@@ -30,7 +30,7 @@ scrapy crawl info_aixplora -O output/categories.json --set LOG_LEVEL=WARNING --l
 
 Pour collecter des outils IA tout en réduisant la verbosité des logs et en enregistrant les logs dans un fichier :
 ```bash
-scrapy crawl ai_tools --set LOG_LEVEL=WARNING --logfile=scrapy.log
+scrapy crawl ai_tools --set LOG_LEVEL=WARNING --logfile=output/scrapy.log
 ```
 
 Nettoyage - suppression des doublons avec concaténation des données informatives :

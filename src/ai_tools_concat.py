@@ -2,10 +2,10 @@ import sqlite3
 import os
 
 def execute_query():
-    file_path = 'tags.csv'
+    file_path = 'output/tags.csv'
     open(file_path, 'w').close()
 
-    conn = sqlite3.connect('ai_tools.db')
+    conn = sqlite3.connect('output/ai_tools.db')
     cursor = conn.cursor()
 
     query = "DELETE FROM ai_tools_concat"
