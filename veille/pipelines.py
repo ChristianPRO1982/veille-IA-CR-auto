@@ -10,7 +10,7 @@ import sqlite3
 
 
 
-class SQLitePipeline:
+class AiToolsPipeline:
     def open_spider(self, spider):
         self.conn = sqlite3.connect('ai_tools.db')
         self.cursor = self.conn.cursor()

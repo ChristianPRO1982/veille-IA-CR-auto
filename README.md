@@ -12,7 +12,7 @@ Veille sur l’intelligence artificielle appliquée aux comptes rendus automatiq
 
 1. Créez un environnement virtuel (venv).
 2. Installez les dépendances à partir du fichier `requirements.txt`.
-3. Exécutez le script pour générer la base de données (BSS) :
+3. Exécutez le script pour générer la base de données :
 ```bash
 python ./src/create_db.py
 ```
@@ -35,6 +35,11 @@ scrapy crawl info_aixplora -O categories.json
 Pour collecter des outils IA tout en réduisant la verbosité des logs et en enregistrant les logs dans un fichier :
 ```bash
 scrapy crawl ai_tools --set LOG_LEVEL=WARNING --logfile=scrapy.log
+```
+
+Nettoyage - suppression des doublons avec concaténation des données informatives :
+```bash
+python ./src/ai_tools_concat.py
 ```
 
 Pour récupérer les URL finales :

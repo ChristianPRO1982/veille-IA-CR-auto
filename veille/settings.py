@@ -63,7 +63,7 @@ ROBOTSTXT_OBEY = True
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-   "veille.pipelines.SQLitePipeline": 300,
+   "veille.pipelines.AiToolsPipeline": 300,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
