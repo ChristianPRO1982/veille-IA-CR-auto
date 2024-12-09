@@ -1,6 +1,6 @@
 import sqlite3
 
-conn = sqlite3.connect('ai_tools.db')
+conn = sqlite3.connect('output/ai_tools.db')
 cursor = conn.cursor()
 
 cursor.execute('''

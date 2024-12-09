@@ -1,5 +1,5 @@
 import scrapy
-import sqlite3
+import csv
 from veille.items import AiToolConcatItem
 from veille.spiders.utils import common_headers
 
@@ -14,23 +14,24 @@ class TagsSpider(scrapy.Spider):
 
 
     def start_requests(self):
-        conn = sqlite3.connect('ai_tools.db')
-        cursor = conn.cursor()
-        cursor.execute("SELECT id, inner_url FROM ai_tools_concat")
-        self.rows = cursor.fetchall()
-        conn.close()
+        file_path = 'output/tags.csv'
+        with open(file_path, newline='') as csvfile:
+            reader = csv.reader(csvfile, delimiter=',')
+            for row in reader:
+                print('id:', row[0], 'url:', row[1])
 
-        for row in self.rows:
-            yield scrapy.Request(url=row[1], meta={"id": row[0]})
-            break
+        # for row in self.rows:
+        #     yield scrapy.Request(url=row[1], meta={"id": row[0]})
+        #     break
 
 
     def parse(self, response):
-        item = AiToolConcatItem()
+        # item = AiToolConcatItem()
 
-        tags = response.css('div.entry-categories span::attr(data-title)').getall()
+        # tags = response.css('div.entry-categories span::attr(data-title)').getall()
 
-        item["id"] = response.meta["id"]
-        item["tags"] = "|".join(tags)
+        # item["id"] = response.meta["id"]
+        # item["tags"] = "|".join(tags)
 
-        yield item
+        # yield item
+        pass

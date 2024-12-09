@@ -30,15 +30,19 @@ INSERT INTO ai_tools_concat (category, title, description, type, inner_url, oute
           GROUP BY a.title, a.description, a.type, a.inner_url, a.outer_url
          ) as tmp
 GROUP BY tmp.title, tmp.outer_url
-    """
+"""
     cursor.execute(query)
 
-    query = "SELECT id, inner_url FROM ai_tools_concat"
+    query = """
+SELECT CONCAT(id, ',', inner_url)
+  FROM ai_tools_concat
+ WHERE inner_url IS NOT NULL
+"""
     cursor.execute(query)
     rows = cursor.fetchall()
     with open(file_path, 'a') as file:
         for row in rows:
-            content = row
+            content = row[0]
             file.write(f'{content}\n')
 
     conn.commit()

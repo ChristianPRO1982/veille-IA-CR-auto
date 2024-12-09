@@ -6,11 +6,6 @@
 import scrapy
 
 
-class VeilleItem(scrapy.Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
-    pass
-
 
 class AiToolItem(scrapy.Item):
     category = scrapy.Field()

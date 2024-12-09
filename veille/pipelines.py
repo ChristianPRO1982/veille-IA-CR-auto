@@ -12,7 +12,7 @@ import sqlite3
 
 class AiToolsPipeline:
     def open_spider(self, spider):
-        self.conn = sqlite3.connect('ai_tools.db')
+        self.conn = sqlite3.connect('output/ai_tools.db')
         self.cursor = self.conn.cursor()
 
     def close_spider(self, spider):
@@ -36,7 +36,7 @@ class AiToolsPipeline:
 
 class TagsPipeline:
     def open_spider(self, spider):
-        self.conn = sqlite3.connect('ai_tools.db')
+        self.conn = sqlite3.connect('output/ai_tools.db')
         self.cursor = self.conn.cursor()
 
     def close_spider(self, spider):
