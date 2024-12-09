@@ -33,9 +33,15 @@ Pour collecter des outils IA tout en réduisant la verbosité des logs et en enr
 scrapy crawl ai_tools --set LOG_LEVEL=WARNING --logfile=output/scrapy.log
 ```
 
+
 Nettoyage - suppression des doublons avec concaténation des données informatives :
 ```bash
 python ./src/ai_tools_concat.py
+```
+
+Récupération de tous les tags
+```bash
+scrapy crawl tags --set LOG_LEVEL=WARNING --logfile=output/scrapy.log
 ```
 
 Pour récupérer les URL finales :
