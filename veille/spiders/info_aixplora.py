@@ -28,3 +28,8 @@ class InfoAixploraSpider(scrapy.Spider):
                     'link': link.attrib['href'],
                     'link_text': link.css('span::text').get(),
                 }
+
+
+    def close_spider(self, spider, reason):
+        # Logic to disable pipelines if needed
+        spider.crawler.engine.close_spider(self, reason)

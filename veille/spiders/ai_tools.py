@@ -14,7 +14,7 @@ class AiToolsSpider(scrapy.Spider):
 
 
     def start_requests(self):
-        with open('categories.json', 'r', encoding='utf-8') as file:
+        with open('output/categories.json', 'r', encoding='utf-8') as file:
             data = json.load(file)
 
         # Récupérer les liens depuis le JSON
