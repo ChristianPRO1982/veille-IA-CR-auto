@@ -13,11 +13,11 @@ def get_final_url(outer_url: str)->str:
     try:
         options = Options()
         options.headless = True
-        service = Service('/usr/local/bin/chromedriver/chromedriver')  # Update with the correct path to chromedriver
+        service = Service('/usr/local/bin/chromedriver/chromedriver')
 
         driver = webdriver.Chrome(service=service, options=options)
         driver.get(outer_url)
-        time.sleep(1)
+        time.sleep(0.5)
         final_url = driver.current_url
         driver.quit()
         return final_url
@@ -32,19 +32,29 @@ def scan_outer_url()->bool:
     cursor = conn.cursor()
 
     query = """
-SELECT outer_url
+SELECT id, outer_url
   FROM ai_tools_concat
  WHERE outer_url IS NOT NULL
- LIMIT 2
+   AND processed = 0
+ LIMIT 100
 """
 
     cursor.execute(query)
     rows = cursor.fetchall()
     for row in rows:
-        if get_final_url(row[0]) != False:
-            print('Success')
+        final_url = get_final_url(row[1])
+        if final_url != False:
+            print(row[1], "=>", final_url)
 
-    conn.commit()
+            query = f"""
+UPDATE ai_tools_concat
+   SET final_url = '{final_url}',
+       processed = 1
+ WHERE id = {row[0]}
+"""
+            cursor.execute(query)
+            conn.commit()
+
     conn.close()
 
 

@@ -31,7 +31,7 @@ CREATE TABLE ai_tools_concat (
     outer_url TEXT,
     final_url TEXT DEFAULT NULL,
     date DATETIME DEFAULT CURRENT_TIMESTAMP,
-    prossed BOOLEAN DEFAULT FALSE 
+    processed BOOLEAN DEFAULT FALSE 
 )
 ''')
 
