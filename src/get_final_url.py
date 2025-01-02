@@ -43,7 +43,7 @@ SELECT id, outer_url
   FROM ai_tools_concat
  WHERE outer_url IS NOT NULL
    AND processed = 0
- LIMIT 200
+ LIMIT 400
 """
 
     cursor.execute(query)
