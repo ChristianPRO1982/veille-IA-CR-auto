@@ -12,6 +12,9 @@ common_headers = common_headers()
 class AiToolsSpider(scrapy.Spider):
     name = "ai_tools"
     allowed_domains = ["www.aixploria.com"]
+    # serp.ia
+    # creati.ai
+    # https://busilearn.fr/
 
 
     def start_requests(self):
